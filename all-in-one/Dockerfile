@@ -1,6 +1,8 @@
 ARG HUB=higress-registry.cn-hangzhou.cr.aliyuncs.com/higress
+ARG SANGFOR_HUB=docker.io/levy001
 ARG BASE_VERSION=2022-10-27T19-02-22
 ARG CORE_VERSION=2.1.6
+ARG GATEWAY_VERSION=2.1.8
 ARG CONSOLE_VERSION=2.1.6
 ARG APISERVER_VERSION=0.0.24
 ARG PROMETHEUS_VERSION=v2.40.7
@@ -11,7 +13,7 @@ ARG GRAFANA_VERSION=9.3.6
 FROM ${HUB}/api-server:${APISERVER_VERSION} AS apiserver
 FROM ${HUB}/higress:${CORE_VERSION} AS controller
 FROM ${HUB}/pilot:${CORE_VERSION} AS pilot
-FROM ${HUB}/gateway:${CORE_VERSION} AS gateway
+FROM ${SANGFOR_HUB}/gateway:${GATEWAY_VERSION} AS gateway
 FROM ${HUB}/console:${CONSOLE_VERSION} AS console
 FROM ${HUB}/prometheus:${PROMETHEUS_VERSION} AS prometheus
 FROM ${HUB}/promtail:${PROMTAIL_VERSION} AS promtail
