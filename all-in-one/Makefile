@@ -5,6 +5,7 @@ BUILD_TIME := $(shell date "+%Y%m%d-%H%M%S")
 COMMIT_ID := $(shell git rev-parse --short HEAD 2>/dev/null)
 IMAGE_TAG = $(if $(strip $(IMAGE_VERSION)),${IMAGE_VERSION},${BUILD_TIME}-${COMMIT_ID})
 IMG ?= ${REGISTRY}${IMAGE_NAME}:${IMAGE_TAG}
+PLATFORMS ?= linux/amd64
 
 .DEFAULT:
 docker-build:
@@ -16,7 +17,7 @@ docker-build:
 
 docker-buildx-push:
 	docker buildx build --no-cache \
-			--platform linux/amd64,linux/arm64 \
+			--platform ${PLATFORMS} \
 			-t ${IMG} \
 			--push \
 			.
